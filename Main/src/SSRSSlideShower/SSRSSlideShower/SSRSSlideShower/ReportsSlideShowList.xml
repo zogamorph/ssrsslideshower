@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ReportsList>
+	<Report DisplaySeconds="10" ReportPath="/kpi/Sales"/>
+	<Report DisplaySeconds="10" ReportPath="/kpi/OverHeads"/>
+	<Report DisplaySeconds="10" ReportPath="/Summary/Sales"/>
+	<Report DisplaySeconds="10" ReportPath="/Summary/Products"/>
+</ReportsList>
