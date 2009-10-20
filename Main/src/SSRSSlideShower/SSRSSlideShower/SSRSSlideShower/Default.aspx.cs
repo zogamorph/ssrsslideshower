@@ -88,20 +88,21 @@ namespace SSRSSlideShower
             }
 
             int index;
-            XElement reportItem = elements[0];
-
+           
             // If we have already displayed a report, increment the index
             if (this.hidDisplayIndex.Value != string.Empty)
             {
                 int maxNumber = elements.Length;
                 index = Convert.ToInt32(this.hidDisplayIndex.Value);
                 index = index == (maxNumber - 1) ? 0 : index + 1;
-                reportItem = elements[index];
+                
             }
             else
             {
                 index = 0;
             }
+
+            XElement reportItem = elements[index];
 
             this.hidDisplayIndex.Value = index.ToString();
 
