@@ -23,6 +23,8 @@ namespace SSRSSlideShower
     using System.Web.UI;
     using System.Xml.Linq;
 
+    using App_Code;
+
     using Microsoft.Reporting.WebForms;
 
     #endregion
@@ -30,19 +32,9 @@ namespace SSRSSlideShower
     /// <summary>
     /// The default page code behind.
     /// </summary>
-    public partial class _Default : Page
+    public partial class ReportSlideShow : Page
     {
         #region Constants and Fields
-
-        /// <summary>
-        /// The attrib display seconds.
-        /// </summary>
-        private const string ATTRIB_DISPLAY_SECONDS = "DisplaySeconds";
-
-        /// <summary>
-        /// The default pause duration.
-        /// </summary>
-        private const int DEFAULT_PAUSE_DURATION = 30;
 
         /// <summary>
         /// The report server url.
@@ -69,61 +61,37 @@ namespace SSRSSlideShower
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            int duration;
-
             this.lblErrorMessage.Visible = false;
-
+            this.ReportViewer.Visible = true;
             string path = HttpContext.Current.Request.MapPath(ConfigurationManager.AppSettings[REPORT_SLIDESHOW_LIST]);
-
-            XDocument reportsList = XDocument.Load(path);
+            int index = string.IsNullOrEmpty(this.hidDisplayIndex.Value)
+                            ? -1
+                            : Convert.ToInt32(this.hidDisplayIndex.Value);
 
             this.ReportViewer.Reset();
             this.ReportViewer.ServerReport.ReportServerCredentials = new SlideShowReportServerCredentials();
             this.ReportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings[REPORT_SERVER_URL]);
-            XElement[] elements = reportsList.Root.Descendants("Report").ToArray();
 
-            if (elements.Length == 0)
+            ReportServerSlideShow reportServerSlideShow = new ReportServerSlideShow(path);
+            ReportSlide nextReportSlide = reportServerSlideShow.GetNextReportSlide(index);
+         
+            if (nextReportSlide == null)
             {
-                return;
-            }
-
-            int index;
-           
-            // If we have already displayed a report, increment the index
-            if (this.hidDisplayIndex.Value != string.Empty)
-            {
-                int maxNumber = elements.Length;
-                index = Convert.ToInt32(this.hidDisplayIndex.Value);
-                index = index == (maxNumber - 1) ? 0 : index + 1;
-                
+                this.lblErrorMessage.Visible = true;
+                this.lblErrorMessage.Text = "There was an error";
+                this.ReportViewer.Visible = false;
             }
             else
             {
-                index = 0;
-            }
-
-            XElement reportItem = elements[index];
-
-            this.hidDisplayIndex.Value = index.ToString();
-
-            if (reportItem.Attribute("DisplaySeconds") != null)
-            {
-                if (int.TryParse(reportItem.Attribute("DisplaySeconds").Value, out duration))
+                this.ReportViewer.ServerReport.ReportPath = nextReportSlide.ReportPath;
+                if (nextReportSlide.ReportParameters.Any())
                 {
-                    this.ReportPauseTimer.Interval = duration;
+                    this.ReportViewer.ServerReport.SetParameters(nextReportSlide.ReportParameters);
                 }
-                else
-                {
-                    this.ReportPauseTimer.Interval = DEFAULT_PAUSE_DURATION;
-                }
+                this.ReportTimer.Interval = nextReportSlide.DisplaySeconds * 1000;
+                this.hidDisplayIndex.Value = nextReportSlide.ReportSlideNumber.ToString();
+                this.ReportViewer.ServerReport.Refresh();
             }
-            else
-            {
-                this.ReportPauseTimer.Interval = DEFAULT_PAUSE_DURATION;
-            }
-
-            this.ReportViewer.ServerReport.ReportPath = reportItem.Attribute("ReportPath").Value;
-            this.ReportViewer.ServerReport.Refresh();
         }
 
         #endregion

@@ -59,17 +59,19 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
+    <Content Include="ReportSlideShow.aspx" />
     <Content Include="ReportsSlideShowList.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
+    <Compile Include="App_Code\ReportServerSlideShow.cs" />
+    <Compile Include="App_Code\ReportSlide.cs" />
+    <Compile Include="ReportSlideShow.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>Default.aspx</DependentUpon>
+      <DependentUpon>ReportSlideShow.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="ReportSlideShow.aspx.designer.cs">
+      <DependentUpon>ReportSlideShow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

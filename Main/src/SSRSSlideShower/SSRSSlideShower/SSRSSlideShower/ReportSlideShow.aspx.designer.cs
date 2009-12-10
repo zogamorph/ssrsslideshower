@@ -11,16 +11,16 @@
 namespace SSRSSlideShower {
     
     
-    public partial class _Default {
+    public partial class ReportSlideShow {
         
         /// <summary>
-        /// form1 control.
+        /// ReportServerSlideShowForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm ReportServerSlideShowForm;
         
         /// <summary>
         /// lblErrorMessage control.
@@ -50,30 +50,21 @@ namespace SSRSSlideShower {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidDisplayIndex;
         
         /// <summary>
-        /// hidProjectNames control.
+        /// Scriptmanager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidProjectNames;
+        protected global::System.Web.UI.ScriptManager Scriptmanager;
         
         /// <summary>
-        /// ReportPauseTimer control.
+        /// ReportTimer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.Timer ReportPauseTimer;
-        
-        /// <summary>
-        /// ReportScriptManager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ReportScriptManager;
+        protected global::System.Web.UI.Timer ReportTimer;
     }
 }

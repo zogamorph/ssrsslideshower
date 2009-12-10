@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ReportsList>
-	<Report DisplaySeconds="10" ReportPath="/kpi/Sales"/>
-	<Report DisplaySeconds="10" ReportPath="/kpi/OverHeads"/>
-	<Report DisplaySeconds="10" ReportPath="/Summary/Sales"/>
-	<Report DisplaySeconds="10" ReportPath="/Summary/Products"/>
+  <Report DisplaySeconds="10" ReportPath="/SSRSMSBuildTeaskDemo/Reports/Execution Log Report">
+    <Parameters>
+      <Parameter Name="pTimeStart" LookUp="None">13/12/2009</Parameter>
+      <Parameter Name="pTimeEnd" LookUp="None">16/12/2009</Parameter>
+    </Parameters>
+  </Report>
+  <Report DisplaySeconds="10" ReportPath="/SSRSMSBuildTeaskDemo/Reports/Index Fragmentation"/>
+  <Report DisplaySeconds="10" ReportPath="/SSRSMSBuildTeaskDemo/Reports/Index Usage"/>
 </ReportsList>
